@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -37,7 +39,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'description'=>$request->description
+        ]);
+
+        return redirect()->Route('categories.index')->with('message','catégorie enregistrée avec succès !');
     }
 
     /**
@@ -57,8 +63,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = Category::find($id);
         return view('categories.edit',compact('category'));
     }
 
@@ -69,9 +76,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryUpdateRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->description = $request->description;
+        $category->update();
+       
+       
+
+        return redirect()->route('categories.index')->with('message','catégorie Modifier avec succès !');
     }
 
     /**
@@ -80,8 +93,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('message','catégorie Supprimer avec succès !');
     }
 }
