@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Models\Member;
 
-class CategoryController extends Controller
+
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index',compact('categories'));
+        $members = Member::all();
+
+        return view('members.index',compact('members'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('members.create');
     }
 
     /**
@@ -37,13 +37,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryStoreRequest $request)
+    public function store(Request $request)
     {
-        Category::create([
-            'description'=>$request->description
+        Member::create([
+            'name'=>$request->name,
+            'surname'=>$request->prenom,
+            'email'=>$request->email
         ]);
 
-        return redirect()->Route('categories.index')->with('message','catégorie enregistrée avec succès !');
+        return redirect()->Route('members.index')->with('message','Membre enregistrée avec succès !');
     }
 
     /**
@@ -65,8 +67,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('categories.edit',compact('category'));
+        $member = Member::find($id);
+        return view('members.edit',compact('member'));
     }
 
     /**
@@ -76,13 +78,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $category = Category::find($id);
-        $category->description = $request->description;
-        $category->update();
+        $member = Member::find($id);
+        $member->name = $request->name;
+        $member->surname = $request->surname;
+        $member->email = $request->email;
+        $member->update();
 
-        return redirect()->route('categories.index')->with('message','catégorie Modifier avec succès !');
+        return redirect()->route('members.index')->with('message','Membre Modifier avec succès !');
     }
 
     /**
@@ -91,9 +95,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Member $member)
     {
-        $category->delete();
-        return redirect()->route('categories.index')->with('message','catégorie Supprimer avec succès !');
+        $member->delete();
+        return redirect()->route('members.index')->with('message','Membre Supprimer avec succès !');
     }
 }

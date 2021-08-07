@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Models\Location;
 
-class CategoryController extends Controller
+
+
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index',compact('categories'));
+        $locations = Location::all();
+
+        return view('locations.index',compact('locations'));
     }
 
     /**
@@ -28,7 +29,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+          return view('locations.create');
+
     }
 
     /**
@@ -37,13 +39,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryStoreRequest $request)
+    public function store(Request $request)
     {
-        Category::create([
-            'description'=>$request->description
+        Location::create([
+            'description'=>$request->description,
+            'nbr_place'=>$request->nbr_place,
+            'reserved'=>0
         ]);
 
-        return redirect()->Route('categories.index')->with('message','catégorie enregistrée avec succès !');
+        return redirect()->Route('locations.index')->with('message','Locale enregistrée avec succès !');
     }
 
     /**
@@ -65,8 +69,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('categories.edit',compact('category'));
+        $location = Location::find($id);
+        return view('locations.edit',compact('location'));
     }
 
     /**
@@ -76,13 +80,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $category = Category::find($id);
-        $category->description = $request->description;
-        $category->update();
+        $location = Location::find($id);
+        $location->description = $request->description;
+        $location->nbr_place = $request->nbr_place;
+        $location->update();
 
-        return redirect()->route('categories.index')->with('message','catégorie Modifier avec succès !');
+        return redirect()->route('locations.index')->with('message','Locale Modifier avec succès !');
     }
 
     /**
@@ -91,9 +96,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Location $location)
     {
-        $category->delete();
-        return redirect()->route('categories.index')->with('message','catégorie Supprimer avec succès !');
+        $location->delete();
+        return redirect()->route('locations.index')->with('message','Locale Supprimer avec succès !');
     }
 }

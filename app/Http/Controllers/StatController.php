@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Member;
+use App\Models\Event;
+use App\Models\Demande;
 
 class StatController extends Controller
 {
@@ -13,7 +17,12 @@ class StatController extends Controller
      */
     public function index()
     {
-        return view('stats.index');
+        $members = DB::table('members')->count();
+        $events = DB::table('events')->count();
+        $demandes = DB::table('demandes')->count();
+
+        return view('stats.index',['members' => $members, 'events' => $events, 'demandes' =>$demandes]); 
+
     }
 
     /**

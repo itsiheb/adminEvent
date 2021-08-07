@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('locations.index') }}">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Liste des Locales</span></a>
             </li>
@@ -86,7 +86,7 @@
 
             
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('members.index') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Liste des Membres</span></a>
             </li>
