@@ -65,10 +65,13 @@ class DemandeController extends Controller
      */
     public function edit($id)
     {
+    
         $demande = Demande::find($id);
+
         $demande->update(['state' => 1]);
         $demande->save();
         return view('events.create',compact('demande'));
+        
     }
 
     /**
@@ -78,9 +81,13 @@ class DemandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id,Request $request)
     {
-        //
+        
+        
+    //
+
+        
     }
 
     public function refuser($id){
