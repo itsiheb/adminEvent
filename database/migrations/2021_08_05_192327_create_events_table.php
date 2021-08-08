@@ -16,6 +16,7 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('member_id')->constrained('member');
             $table->string('description');
             $table->foreignId('category_id')->constrained('categories');
             $table->integer('nbr_place');

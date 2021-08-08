@@ -26,3 +26,5 @@ Route::resource('locations', 'App\Http\Controllers\LocationController'::class);
 Route::resource('members', 'App\Http\Controllers\MemberController'::class);
 Route::resource('demandes', 'App\Http\Controllers\DemandeController'::class);
 Route::resource('stats', 'App\Http\Controllers\StatController'::class);
+Route::resource('events', 'App\Http\Controllers\EventController'::class);
+

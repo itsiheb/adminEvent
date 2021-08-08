@@ -9,4 +9,9 @@ class Location extends Model
 {
     protected $fillable = ['description','nbr_place','reserved'];
     use HasFactory;
+
+    public function demandes()
+    {
+        return $this->hasMany(Demande::class);
+    }
 }

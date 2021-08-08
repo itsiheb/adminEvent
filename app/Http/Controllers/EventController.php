@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Demande;
+use App\Models\Event;
 use App\Models\Member;
-use App\Models\Locale;
+use App\Models\Location;
 use App\Models\Category;
 
-class DemandeController extends Controller
+
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class DemandeController extends Controller
      */
     public function index()
     {
-        $demandes = Demande::all();
+        $events = Event::all();
 
-        return view('demandes.index',compact('demandes'));
+        return view('events.index',compact('events'));
     }
 
     /**
@@ -30,8 +31,7 @@ class DemandeController extends Controller
      */
     public function create()
     {
-        
-       
+        //
     }
 
     /**
@@ -42,8 +42,23 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
-      //
-       
+        $cat = DB::table('categories')->where('description', $request->category_id)->first();
+        $location = Location::where('description', $request->location_id)->first();
+        $member = Member::where('name',$request->member)->first();
+        
+        Event::create([
+            'title'=>$request->title,
+            'member_id'=>$member->id,
+            'description'=>$request->description,
+            'category_id'=>$cat->id,
+            'nbr_place'=>$request->nbr_place,
+            'location_id'=>$location->id
+        ]);
+
+
+
+        return redirect()->Route('events.index')->with('message','evennement creer avec succès !');
+
     }
 
     /**
@@ -65,10 +80,7 @@ class DemandeController extends Controller
      */
     public function edit($id)
     {
-        $demande = Demande::find($id);
-        $demande->update(['state' => 1]);
-        $demande->save();
-        return view('events.create',compact('demande'));
+        //
     }
 
     /**
@@ -83,19 +95,15 @@ class DemandeController extends Controller
         //
     }
 
-    public function refuser($id){
-        
-    }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Demande $demande)
+    public function destroy(Event $event)
     {
-        $demande->delete();
-        return redirect()->route('demandes.index')->with('message','La demande a ete Supprimer avec succès !');
+        $event->delete();
+        return redirect()->route('events.index')->with('message','L evennement a ete Supprimer avec succès !');
     }
 }
