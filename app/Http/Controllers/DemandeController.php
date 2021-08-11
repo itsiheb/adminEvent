@@ -66,7 +66,7 @@ class DemandeController extends Controller
     public function edit($id)
     {
         
-       dd($request);
+       
         $demande = Demande::find($id);
 
         $demande->update(['state' => 1]);
@@ -74,6 +74,7 @@ class DemandeController extends Controller
         return view('events.create',compact('demande'));
         
     }
+
 
 
     /**

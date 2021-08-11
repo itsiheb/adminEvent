@@ -44,6 +44,8 @@ class EventController extends Controller
     {
         $cat = DB::table('categories')->where('description', $request->category_id)->first();
         $location = Location::where('description', $request->location_id)->first();
+        $location->update(['reserved' => 1]);
+        $location->save();
         $member = Member::where('name',$request->member)->first();
         
         Event::create([
