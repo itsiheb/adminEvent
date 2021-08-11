@@ -20,8 +20,11 @@ class StatController extends Controller
         $members = DB::table('members')->count();
         $events = DB::table('events')->count();
         $demandes = DB::table('demandes')->count();
+        $locations = DB::table('locations')->count();
+        $demandes = DB::table('demandes')->count();
+     
 
-        return view('stats.index',['members' => $members, 'events' => $events, 'demandes' =>$demandes]); 
+        return view('stats.index',['members' => $members, 'events' => $events, 'demandes' =>$demandes,'locations'=>$locations]); 
 
     }
 
