@@ -67,17 +67,22 @@
       
       <th>
         @if($demande->state ==2) 
-        <a class="btn-sm btn-primary" href="{{route('demandes.edit',$demande->id)}}">Accepter</a> 
-      </th>
-      <th><a class="btn-sm btn-secondary" href="{{route('demandes.edit',[$demande->id,'state'=>0])}}">Refuser</a></th>
-      @endif
+        <a href="{{ route('demandes.edit',$demande->id)}}"  name="accepter" class="btn-sm btn-info">Accepter</a>
+      </th><th>
+        <form method="POST" action="{{route('demandes.destroy',$demande->id)}}">
+          @csrf
+          @method('DELETE')
+          <button class="btn-sm btn-primary">Refuser</button>
+          </form>
+        </th>
+      @else
         <th>   <form method="POST" action="{{route('demandes.destroy',$demande->id)}}">
             @csrf
             @method('DELETE')
-            <button class="btn-sm btn-danger">Supprimer</button>
+            <button class="btn-sm btn-danger">Supprimer de l'historique</button>
             </form> </th>
            
-      
+      @endif
     </tr>
     @endforeach
   </tbody>

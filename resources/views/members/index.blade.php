@@ -10,7 +10,7 @@
         <div class="card">
           <form>
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="rechercher une demande ici" aria-label="Search" name="search" id="search">
+                <input class="form-control form-control-navbar" type="search" placeholder="rechercher un membre ici" aria-label="Search" name="search" id="search">
                 <div class="input-group-append">
                     <button class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>

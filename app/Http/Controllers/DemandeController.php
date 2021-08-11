@@ -65,7 +65,8 @@ class DemandeController extends Controller
      */
     public function edit($id)
     {
-    
+        
+       dd($request);
         $demande = Demande::find($id);
 
         $demande->update(['state' => 1]);
@@ -74,6 +75,7 @@ class DemandeController extends Controller
         
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -81,19 +83,15 @@ class DemandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
-    {
-        
-        
-    //
+    public function update($id)
+    {    
 
-        
+     //
+
     }
 
-    public function refuser($id){
-        
-    }
 
+  
     /**
      * Remove the specified resource from storage.
      *
